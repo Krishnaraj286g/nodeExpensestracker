@@ -4,7 +4,7 @@ let body=require('body-parser')
 app.use(body.urlencoded({extended:true}))
 let port=1500;
 let expenses=[];
-app.get('/ejsdemo',(req,res)=>{
+app.get('/',(req,res)=>{
     res.render('app.ejs',{expenses})
 
     // res.render('app.ejs',{Sno,Name,Amount,Type,Delete})
