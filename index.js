@@ -19,7 +19,7 @@ app.post("/ejs",(req,res)=>{
     };
 
     expenses.push(newExpense);
-    res.redirect("/ejsdemo")
+    res.redirect("/")
 })
 
 app.post("/delete/:index", (req, res) => {
