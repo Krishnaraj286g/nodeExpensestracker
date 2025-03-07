@@ -25,7 +25,7 @@ app.post("/ejs",(req,res)=>{
 app.post("/delete/:index", (req, res) => {
     const index = req.params.index;
     expenses.splice(index, 1); // Remove the expense at the given index
-    res.redirect("/ejsdemo"); // Refresh the page
+    res.redirect("/"); // Refresh the page
 });
 
 app.listen(port,console.log("port running",port));
