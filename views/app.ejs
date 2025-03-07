@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tableinput{
+            display: flex;
+            line-height: 30px;
+            gap: 20px;
+            
+        }
+
+        .tie{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .balance{
+            text-align: center;
+            padding: 20px;
+            box-shadow: rgba(7, 95, 66, 0.504) 0px 5px 15px;  
+            margin-bottom: 30px;  
+            line-height: 40px; 
+         }
+
+        .addnew{
+            padding: 30px;
+            margin-right: 30px;
+            max-height:  300px;
+            overflow-y: auto;
+            box-shadow: rgba(15, 15, 15, 0.35) 0px 5px 15px;
+        }
+
+        .addnew  form h2{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .addnew  form button{
+            padding: 10px;
+            position: relative;
+            left: 30%;
+            margin-top: 10px;
+            background-color: rgb(102, 240, 102);
+            outline: none;
+            border: none;
+            
+        }
+
+        .addnew  form button:active{
+            box-shadow: rgba(9, 9, 9, 0.35) 0px 5px 15px;
+        }
+
+
+        table {
+            text-align: center;
+        }
+
+        th{ 
+            background-color: gray;
+            padding: 10px;
+        }
+
+        td{
+            padding: 10px;
+        }
+        td:nth-child(5) form button{
+            background-color: rgb(141, 137, 137);
+            border: none;
+            padding: 10px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        td:nth-child(5) form button:active{
+            background-color: red;
+            transition: 0.2s;
+        }
+
+        .addnew  select{
+            padding: 10px;
+        }
+        
+        .addnew label,input{
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        .addnew div{
+            display: flex;
+            justify-content: space-between;
+        }
+
+         .table thead tr{
+            color: aquamarine;
+        }
+
+        table tbody tr:nth-of-type(even){
+            background-color: rgb(199, 193, 193);
+        }
+
+        table tbody tr:nth-of-type(odd){
+            background-color: rgb(228, 230, 228);
+        }
+
+        table tbody tr:hover{
+            transition: 0.2s;
+            box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;}
+
+    </style>
+</head>
+<body>
+    <div class="balance">
+        <h2>Balance:<span> <% 
+            let totalIncome = 0, totalExpense = 0;
+            expenses.forEach(expense => { 
+                if (expense.Type === "Income") { 
+                    totalIncome += parseFloat(expense.Amount);
+                } else {
+                    totalExpense += parseFloat(expense.Amount);
+                }
+            });
+            let balance = totalIncome - totalExpense;
+           
+        %>
+        <%= balance %></span></h2>
+        <div class="tie">
+        <div class="income">
+            <p>Total Income:<span> <%=totalIncome %>
+            </span></p>
+        </div>
+
+        <div class="expence">
+            <p>Total Expence:<span><%=totalExpense %></span></p>
+        </div>
+
+    </div>
+    </div>
+    <div class="tableinput">
+    <div class="addnew">
+        <form action="/ejs" method="post">
+        <h2>Add new</h2>
+        <div>
+        <label for="">Entry type:</label> <select name="Income">
+            <option value="Income" >Income</option>
+            <option value="Expence" >Expence</option>
+            </select>
+        </div>
+
+        
+        <div>
+            <label for="">Name:</label><input type="text" name="user">
+        </div>
+
+        <div>
+            <label for="">Amount:</label><input type="text" name="amount">
+        </div>
+
+        <button>Add Expence</button>
+    </form>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead><tr>
+                <td colspan="5">Income / Expence</td>
+            </tr></thead>
+            <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Delete</th>
+            </tr>
+        
+
+            <tbody>
+                <% expenses.forEach((expense, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= expense.Name %></td>
+                        <td><%= expense.Amount %></td>
+                        <td><%= expense.Type %></td>
+                        <td>
+                            <form action="/delete/<%= index %>" method="post">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+            
+        </table>
+    </div>
+    </div>
+</body>
+</html>
